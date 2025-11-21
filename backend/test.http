@@ -1,0 +1,52 @@
+GET http://127.0.0.1:4000
+
+
+### sign-up
+POST http://127.0.0.1:4000/api/auth/signup
+Content-Type: application/json
+
+{
+  "name": "Emmanuel",
+  "email": "emmanuel4@any.com",
+  "password": "12345678",
+  "role": "doctor",
+  "bio": "hello",
+  "experience": 5,
+  "phone": "1234567890",
+  "consultationFee": 250.00
+}
+
+### login
+POST http://127.0.0.1:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "emmanuel3@any.com",
+  "password": "12345678"
+}
+
+### profile
+GET http://127.0.0.1:4000/api/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwibmFtZSI6IkVtbWFudWVsIiwicm9sZSI6ImRvY3RvciIsImlhdCI6MTc2MzcyNDgzNCwiZXhwIjoxNzY0MzI5NjM0fQ.ZjX4jG5zyr3c8kqV93oldjLG7h_s21Ez4tcLdt1IuOk
+
+### update profile
+PUT http://127.0.0.1:4000/api/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwibmFtZSI6IkVtbWFudWVsIiwicm9sZSI6ImRvY3RvciIsImlhdCI6MTc2MzcyNDgzNCwiZXhwIjoxNzY0MzI5NjM0fQ.ZjX4jG5zyr3c8kqV93oldjLG7h_s21Ez4tcLdt1IuOk
+Content-Type: application/json
+
+{
+  "name": "Dave",
+  "phone": "09012345678"
+}
+
+### Get all users
+GET http://127.0.0.1:4000/api/admin/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkVtbWFudWVsIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYzNzI1MzA0LCJleHAiOjE3NjQzMzAxMDR9.EUA4tA-ANaOQZV73b2dTWplYV4idROmN2nGRyZjHcVI
+
+
+### Get block a user
+PUT http://127.0.0.1:4000/api/admin/users/7/block
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkVtbWFudWVsIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYzNzI1MzA0LCJleHAiOjE3NjQzMzAxMDR9.EUA4tA-ANaOQZV73b2dTWplYV4idROmN2nGRyZjHcVI
+Content-Type: application/json
+
+{ "isBlocked": false }
