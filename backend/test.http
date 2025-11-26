@@ -1,52 +1,99 @@
-GET http://127.0.0.1:4000
-
-
 ### sign-up
-POST http://127.0.0.1:4000/api/auth/signup
+post http://127.0.0.1:4000/api/auth/signup
 Content-Type: application/json
 
 {
-  "name": "Emmanuel",
-  "email": "emmanuel4@any.com",
+  "name": "Dr. Dev",
+  "email": "dev@empire-reports.com",
   "password": "12345678",
   "role": "doctor",
-  "bio": "hello",
-  "experience": 5,
-  "phone": "1234567890",
-  "consultationFee": 250.00
+  "phone": "09033447755",
+  "specialization": "Plastic Surgery",
+  "bio": "Plastic and reconstructive surgeon experienced in aesthetic and reconstructive procedures.",
+  "experience": 8,
+  "consultationFee": 350.00
 }
 
-### login
-POST http://127.0.0.1:4000/api/auth/login
+### log-in
+post http://127.0.0.1:4000/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "emmanuel3@any.com",
+  "email": "user.booking.com", 
   "password": "12345678"
 }
 
-### profile
-GET http://127.0.0.1:4000/api/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwibmFtZSI6IkVtbWFudWVsIiwicm9sZSI6ImRvY3RvciIsImlhdCI6MTc2MzcyNDgzNCwiZXhwIjoxNzY0MzI5NjM0fQ.ZjX4jG5zyr3c8kqV93oldjLG7h_s21Ez4tcLdt1IuOk
+### Get all doctors
+GET http://127.0.0.1:4000/api/doctors
 
-### update profile
-PUT http://127.0.0.1:4000/api/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwibmFtZSI6IkVtbWFudWVsIiwicm9sZSI6ImRvY3RvciIsImlhdCI6MTc2MzcyNDgzNCwiZXhwIjoxNzY0MzI5NjM0fQ.ZjX4jG5zyr3c8kqV93oldjLG7h_s21Ez4tcLdt1IuOk
+
+### Get doctors Profile
+GET http://127.0.0.1:4000/api/doctors/6
+
+### Update Doctor Availability
+PUT http://127.0.0.1:4000/api/doctors/availability
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwicm9sZSI6ImRvY3RvciIsImlhdCI6MTc2MjQyNTgxNiwiZXhwIjoxNzYzMDMwNjE2fQ.04AJqjr0zy4WtxWeEo0Ia_Qh4DlUAB3nfJwrpSl7zxA
 Content-Type: application/json
 
 {
-  "name": "Dave",
-  "phone": "09012345678"
+  "availableSlots": [
+        {
+            "day": "Monday",
+            "endTime": "14:00",
+            "startTime": "09:00"
+        },
+        {
+            "day": "Tuesday",
+            "endTime": "14:00",
+            "startTime": "09:00"
+        },
+        {
+            "day": "Wednesday",
+            "endTime": "14:00",
+            "startTime": "09:00"
+        },
+        {
+            "day": "Thursday",
+            "endTime": "14:00",
+            "startTime": "09:00"
+        }
+    ]
 }
 
-### Get all users
-GET http://127.0.0.1:4000/api/admin/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkVtbWFudWVsIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYzNzI1MzA0LCJleHAiOjE3NjQzMzAxMDR9.EUA4tA-ANaOQZV73b2dTWplYV4idROmN2nGRyZjHcVI
+### Get Profile
+GET http://127.0.0.1:4000/api/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwicm9sZSI6ImRvY3RvciIsImlhdCI6MTc2MjQyNTgxNiwiZXhwIjoxNzYzMDMwNjE2fQ.04AJqjr0zy4WtxWeEo0Ia_Qh4DlUAB3nfJwrpSl7zxA
 
-
-### Get block a user
-PUT http://127.0.0.1:4000/api/admin/users/7/block
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkVtbWFudWVsIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYzNzI1MzA0LCJleHAiOjE3NjQzMzAxMDR9.EUA4tA-ANaOQZV73b2dTWplYV4idROmN2nGRyZjHcVI
+### Update Profile
+PUT http://127.0.0.1:4000/api/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwicm9sZSI6ImRvY3RvciIsImlhdCI6MTc2MjQyNTgxNiwiZXhwIjoxNzYzMDMwNjE2fQ.04AJqjr0zy4WtxWeEo0Ia_Qh4DlUAB3nfJwrpSl7zxA
 Content-Type: application/json
 
-{ "isBlocked": false }
+{
+  "name": "Dr. Dave",
+  "phone": "+68587687908"
+}
+
+### Admin -> get all users
+GET http://127.0.0.1:4000/api/admin/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYyNTA0ODA3LCJleHAiOjE3NjMxMDk2MDd9.yLcUME7-H-78EutXGV6t4fyM3-ZTsN8FndDarfveG2c
+
+### Block a user 
+PUT http://127.0.0.1:4000/api/admin/users/11/block
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYyNTA0ODA3LCJleHAiOjE3NjMxMDk2MDd9.yLcUME7-H-78EutXGV6t4fyM3-ZTsN8FndDarfveG2c
+Content-Type: application/json
+
+{ "isBlocked": true }
+
+
+### Block a user 
+POST  http://127.0.0.1:4000/api/appointments
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsIm5hbWUiOiJ1c2VyIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE3NjI1MDk1ODcsImV4cCI6MTc2MzExNDM4N30.Oxj-LXfz26mdk0Rp03L2ljm72Z4gjDRHXavaG443i2s
+Content-Type: application/json
+
+{ 
+  "doctorId": 16,
+"appointmentDate": "2025-11-10",
+"appointmentTime": "10:30 AM",
+"notes": "Regular check-up"
+} 

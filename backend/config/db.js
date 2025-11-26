@@ -60,8 +60,6 @@ const initDB = async () => {
   }
 };
 
-initDB();
-
 async function createAdmin() {
   try {
     const existingAdmin = await pool.query(
@@ -83,6 +81,10 @@ async function createAdmin() {
     console.error("Error while creating admin:", err.message);
   }
 }
-createAdmin()
+
+(async () => {
+  initDB();
+  createAdmin()
+})()
 
 module.exports = { pool }
