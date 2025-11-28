@@ -18,13 +18,16 @@ router.post('/', authorizeRole('patient'), async (req, res) => {
       `,
       [req.user.id, doctorId, appointmentDate, appointmentTime, notes]
     )
+            
+    res.status(201).json(result.rows[0])
+    
     // sending email
     const user = await pool.query(
       'SELECT u.email, u.name FROM users u JOIN doctors d ON u.id = d.user_id WHERE d.id = $1',
       [doctorId]
     )
     if (user.rows.length > 0) {
-      await sendEmail(
+      sendEmail(
         user.rows[0].email, 'New Appointment Request',
         `<div>
           <h3>Hello ${user.rows[0].name}</h3>
@@ -34,9 +37,8 @@ router.post('/', authorizeRole('patient'), async (req, res) => {
           <p>${notes}</p>
           <p>Please log in to your dashboard to review ${req.user.name}'s appointment.</p>
         </div>`
-      )
+      ).catch(console.error)
     }
-    res.status(201).json(result.rows[0])
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
@@ -118,6 +120,9 @@ router.put('/:id', async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Appointment not found or unauthorized' });
     }
+        
+    res.status(200).json(result.rows[0]);
+
     // Send email notification
     if (req.user.role === 'doctor' && process.env.EMAIL_USER) {
       const patientData = await pool.query(
@@ -125,17 +130,16 @@ router.put('/:id', async (req, res) => {
         [appointmentId]
       );
       if (patientData.rows.length > 0) {
-        await sendEmail(
+        sendEmail(
           patientData.rows[0].email, `Appointment ${status}`,
           `<div>
           <h3>Hello ${patientData.rows[0].name}</h3>
           <h3>Appointment Update</h3>
           <p>Your appointment has been <strong>${status}</strong>.</p>
         </div>`
-        )
+        ).catch(console.error)
       }
     }
-    res.status(200).json(result.rows[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
