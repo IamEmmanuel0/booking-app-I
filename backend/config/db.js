@@ -1,13 +1,13 @@
-require("dotenv").config();
-const { Pool } = require("pg");
-const bcrypt = require("bcrypt");
+require('dotenv').config();
+const { Pool } = require('pg');
+const bcrypt = require('bcrypt');
 
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
-  port: process.env.DB_POST,
+  port: process.env.DB_PORT
 });
 
 const initDB = async () => {
@@ -54,37 +54,37 @@ const initDB = async () => {
 
   try {
     await pool.query(query);
-    console.log("DB init....");
+    console.log('Database initialized');
   } catch (err) {
-    console.error("DB init error:", err);
+    console.error('Database initialization error:', err);
   }
-};
+}
+
+initDB()
 
 async function createAdmin() {
   try {
     const existingAdmin = await pool.query(
-      'SELECT * FROM users WHERE email = $1', [process.env.ADMIN_EMAIL]
-    )
-
+      'SELECT * FROM users WHERE email = $1',
+      [process.env.ADMIN_EMAIL]
+    );
+  
     if (existingAdmin.rows.length < 1) {
       const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10)
       await pool.query(
         `
-          INSERT INTO users (name, email, password, role)
-          VALUES ($1, $2, $3, $4)
-        `,
+        INSERT INTO users (name, email, password, role)
+        VALUES ($1, $2, $3, $4)
+      `,
         [process.env.ADMIN_NAME, process.env.ADMIN_EMAIL, hashedPassword, 'admin']
       )
-      console.log("Admin created successfully");
+      console.log('Admin created successfully');
     }
   } catch (err) {
-    console.error("Error while creating admin:", err.message);
+    console.error('Error', err.message)
   }
 }
 
-(async () => {
-  initDB();
-  createAdmin()
-})()
+createAdmin()
 
-module.exports = { pool }
+module.exports = { pool };

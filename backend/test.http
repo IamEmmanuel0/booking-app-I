@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "name": "Dr. Dev",
-  "email": "dev@empire-reports.com",
+  "email": "dev3@empire-reports.com",
   "password": "12345678",
   "role": "doctor",
   "phone": "09033447755",

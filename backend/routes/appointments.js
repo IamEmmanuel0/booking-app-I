@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const { pool } = require('../config/database');
+const { pool } = require('../config/db');
 const { authorizeRole } = require('../middleware');
 const { sendEmail } = require('../config/email');
 const router = express.Router();
